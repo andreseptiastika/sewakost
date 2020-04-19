@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Kamar;
+use App\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class KamarController extends Controller
+class TransaksiController extends Controller
 {
     public function __construct()
     {
@@ -23,9 +23,9 @@ class KamarController extends Controller
      */
     public function index()
     {
-        $title = 'Kamar';
-        $kamar = Kamar::paginate(5);
-        return view('admin.kamar',compact('title','kamar'));
+        $title = 'Transaksi';
+        $transaksi = Transaksi::paginate(5);
+        return view('admin.transaksi.transaksi',compact('title','transaksi'));
     }
 
     /**
@@ -35,8 +35,8 @@ class KamarController extends Controller
      */
     public function create()
     {
-        $title = 'Input Kamar';
-        return view('admin.inputkamar',compact('title'));
+        $title = 'Input Transaksi';
+        return view('admin.transaksi.inputtransaksi',compact('title'));
     }
 
     /**
@@ -54,14 +54,18 @@ class KamarController extends Controller
         ];
 
         $validasi = $request->validate([
-            'nama_kamar' => 'required',
-            'fasilitas'  => 'required',
-            'status'     => '',
-            'harga_sewa' => 'numeric'
+            'id_kamar'      => 'required',
+            'id_penyewa'    => 'required',
+            'tgl_masuk'     => 'date',
+            'tgl_keluar'    => 'date',
+            'tgl_bayar'     => '',
+            'biaya'         => '',
+            'jumlah_bayar'  => '',
+            'batas_tempo'   => ''
         ],$messages);
         
-        Kamar::create($validasi);
-        return redirect('kamar')->with('success', 'Data Berhasil Di Update');
+        Transaksi::create($validasi);
+        return redirect('transaksi')->with('success', 'Data Berhasil Di Tambahkan');
     }
 
     /**
@@ -72,7 +76,7 @@ class KamarController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -83,9 +87,9 @@ class KamarController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Input Kamar';
-        $kamar = Kamar::find($id);
-        return view('admin.inputkamar',compact('title','kamar'));
+        $title = 'Edit Transaksi';
+        $transaksi = Transaksi::find($id);
+        return view('admin.transaksi.inputtransaksi',compact('title','transaksi'));
     }
 
     /**
@@ -104,14 +108,18 @@ class KamarController extends Controller
         ];
 
         $validasi = $request->validate([
-            'nama_kamar' => 'required',
-            'fasilitas'  => 'required',
-            'status'     => '',
-            'harga_sewa' => 'numeric'
+            'id_kamar'      => 'required',
+            'id_penyewa'    => 'required',
+            'tgl_masuk'     => 'date',
+            'tgl_keluar'    => 'date',
+            'tgl_bayar'     => '',
+            'biaya'         => '',
+            'jumlah_bayar'  => '',
+            'batas_tempo'   => ''
         ],$messages);
         
-        Kamar::whereid_kamar($id)->update($validasi);
-        return redirect('kamar')->with('success', 'Data Berhasil Di Update');
+        Transaksi::whereid_transaksi($id)->update($validasi);
+        return redirect('transaksi')->with('success', 'Data Berhasil Di Update');
     }
 
     /**
@@ -122,7 +130,7 @@ class KamarController extends Controller
      */
     public function destroy($id)
     {
-        Kamar::whereid_kamar($id)->delete();
-        return redirect('kamar')->with('success', 'Data Berhasil Di Update');
+        Transaksi::whereid_transaksi($id)->delete();
+        return redirect('transaksi')->with('success', 'Data Berhasil Di Hapus');
     }
 }

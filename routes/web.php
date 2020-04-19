@@ -17,4 +17,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 //Route::get('/home', 'KamarController@index');
-Route::resource('/kamar', 'KamarController');
+Route::resource('kamar', 'KamarController');
+
+Auth::routes();
+
+Route::get('/kamar', 'KamarController@index')->name('home');
+
+Route::resource('kepala', 'KepalaController');
+
+Auth::routes();
+
+Route::get('/kepala', 'KepalaController@index')->name('home');
+
+Route::resource('transaksi', 'TransaksiController');
+
+Auth::routes();
+
+Route::get('/transaksi', 'TransaksiController@index')->name('home');
