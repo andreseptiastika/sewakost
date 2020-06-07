@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Transaksi;
+<<<<<<< HEAD
 use App\Sewa;
 use App\Penyewa;
 use App\Kamar;
+=======
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,7 +17,11 @@ class TransaksiController extends Controller
     public function __construct()
     {
         $this->middleware(function($request, $next){
+<<<<<<< HEAD
             if(Gate::allows('admin')) return $next($request);
+=======
+            if(Gate::allows('admin'))return $next($request);
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
             abort(403, "Anda Tidak Memiliki Cukup Hak Akses");
         });
         
@@ -39,10 +46,14 @@ class TransaksiController extends Controller
     public function create()
     {
         $title = 'Input Transaksi';
+<<<<<<< HEAD
         $sewa = Sewa::all();
         $kamar   = Kamar::all();
         $penyewa = Penyewa::all();
         return view('admin.transaksi.inputtransaksi',compact('title','sewa','kamar','penyewa'));
+=======
+        return view('admin.transaksi.inputtransaksi',compact('title'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
     /**
@@ -60,12 +71,23 @@ class TransaksiController extends Controller
         ];
 
         $validasi = $request->validate([
+<<<<<<< HEAD
             'no_transaksi'  => 'required',
             'id_sewa'       => 'required',
             'tgl_bayar'     => 'date',
             'biaya'         => 'numeric',
             'jumlah_bayar'  => 'numeric',
             'batas_tempo'   => 'date'
+=======
+            'id_kamar'      => 'required',
+            'id_penyewa'    => 'required',
+            'tgl_masuk'     => 'date',
+            'tgl_keluar'    => 'date',
+            'tgl_bayar'     => '',
+            'biaya'         => '',
+            'jumlah_bayar'  => '',
+            'batas_tempo'   => ''
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
         ],$messages);
         
         Transaksi::create($validasi);
@@ -92,11 +114,16 @@ class TransaksiController extends Controller
     public function edit($id)
     {
         $title = 'Edit Transaksi';
+<<<<<<< HEAD
         $sewa = Sewa::all();
         $kamar   = Kamar::all();
         $penyewa = Penyewa::all();
         $transaksi = Transaksi::find($id);
         return view('admin.transaksi.edittransaksi',compact('title','transaksi','sewa','kamar','penyewa'));
+=======
+        $transaksi = Transaksi::find($id);
+        return view('admin.transaksi.inputtransaksi',compact('title','transaksi'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
     /**
@@ -115,12 +142,23 @@ class TransaksiController extends Controller
         ];
 
         $validasi = $request->validate([
+<<<<<<< HEAD
             'no_transaksi'  => 'required',
             'id_sewa'       => 'required',
             'tgl_bayar'     => 'date',
             'biaya'         => 'numeric',
             'jumlah_bayar'  => 'numeric',
             'batas_tempo'   => 'date'
+=======
+            'id_kamar'      => 'required',
+            'id_penyewa'    => 'required',
+            'tgl_masuk'     => 'date',
+            'tgl_keluar'    => 'date',
+            'tgl_bayar'     => '',
+            'biaya'         => '',
+            'jumlah_bayar'  => '',
+            'batas_tempo'   => ''
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
         ],$messages);
         
         Transaksi::whereid_transaksi($id)->update($validasi);

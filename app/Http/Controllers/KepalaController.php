@@ -10,7 +10,11 @@ class KepalaController extends Controller
     public function __construct()
     {
         $this->middleware(function($request, $next){
+<<<<<<< HEAD
             if(Gate::allows('kepala')) return $next($request);
+=======
+            if(Gate::allows('kepala'))return $next($request);
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
             abort(403, "Anda Tidak Memiliki Cukup Hak Akses");
         });
     }
@@ -22,7 +26,11 @@ class KepalaController extends Controller
     public function index()
     {
         $title = 'Kepala';
+<<<<<<< HEAD
         return view('kepala.dashboard',compact('title'));
+=======
+        return view('admin.dashboard',compact('title'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
 }

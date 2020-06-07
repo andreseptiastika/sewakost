@@ -30,5 +30,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('kepala', function($user){
             return count(array_intersect(["kepala"], json_decode($user->roles)));
         });
+<<<<<<< HEAD
+=======
+
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 }

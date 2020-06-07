@@ -11,7 +11,11 @@ class KamarController extends Controller
     public function __construct()
     {
         $this->middleware(function($request, $next){
+<<<<<<< HEAD
             if(Gate::allows('admin')) return $next($request);
+=======
+            if(Gate::allows('admin'))return $next($request);
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
             abort(403, "Anda Tidak Memiliki Cukup Hak Akses");
         });
         
@@ -25,7 +29,11 @@ class KamarController extends Controller
     {
         $title = 'Kamar';
         $kamar = Kamar::paginate(5);
+<<<<<<< HEAD
         return view('admin.kamar.kamar',compact('title','kamar'));
+=======
+        return view('admin.kamar',compact('title','kamar'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
     /**
@@ -36,7 +44,11 @@ class KamarController extends Controller
     public function create()
     {
         $title = 'Input Kamar';
+<<<<<<< HEAD
         return view('admin.kamar.inputkamar',compact('title'));
+=======
+        return view('admin.inputkamar',compact('title'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
     /**
@@ -85,7 +97,11 @@ class KamarController extends Controller
     {
         $title = 'Input Kamar';
         $kamar = Kamar::find($id);
+<<<<<<< HEAD
         return view('admin.kamar.inputkamar',compact('title','kamar'));
+=======
+        return view('admin.inputkamar',compact('title','kamar'));
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
     }
 
     /**

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
     return view('auth/login');
 });
 
@@ -45,3 +46,25 @@ Route::get('/laporankamar/cetak_pdf', 'LaporanKamarController@cetak_pdf');
 
 Route::get('/laporanpenyewa', 'LaporanPenyewaController@index');
 Route::get('/laporanpenyewa/cetak_pdf', 'LaporanPenyewaController@cetak_pdf');
+=======
+    return view('welcome');
+});
+//Route::get('/home', 'KamarController@index');
+Route::resource('kamar', 'KamarController');
+
+Auth::routes();
+
+Route::get('/kamar', 'KamarController@index')->name('home');
+
+Route::resource('kepala', 'KepalaController');
+
+Auth::routes();
+
+Route::get('/kepala', 'KepalaController@index')->name('home');
+
+Route::resource('transaksi', 'TransaksiController');
+
+Auth::routes();
+
+Route::get('/transaksi', 'TransaksiController@index')->name('home');
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd

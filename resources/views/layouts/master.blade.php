@@ -34,6 +34,7 @@
 				<div class="navbar-btn">
 					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
 				</div>
+<<<<<<< HEAD
 			
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
@@ -59,6 +60,35 @@
 						<!-- <li>
 							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
 						</li> -->
+=======
+				<form class="navbar-form navbar-left">
+					<div class="input-group">
+						<input type="text" value="" class="form-control" placeholder="Search dashboard...">
+						<span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+					</div>
+				</form>
+				
+				<div id="navbar-menu">
+					<ul class="nav navbar-nav navbar-right">
+						
+					<li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
 					</ul>
 				</div>
 			</div>
@@ -69,6 +99,7 @@
 			<div class="sidebar-scroll">
 				<nav>
 					<ul class="nav">
+<<<<<<< HEAD
 					<li><a href="/" class="{{ Request::is('/') ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
 						<li>
 							<a href="#utama" data-toggle="collapse" class="{{ Request::is('transaksi') || Request::is('sewa') ? 'active' : '' }}" aria-expanded="true"><i class="lnr lnr-file-empty"></i> <span>Menu Utama</span> </a>
@@ -89,6 +120,13 @@
 								</ul>
 							</div>
 						</li>
+=======
+						<li><a href="index.html" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+						<li><a href="/kamar" class=""><i class="lnr lnr-code"></i> <span>Manajemen Kamar</span></a></li>
+						<li><a href="/transaksi" class=""><i class="lnr lnr-chart-bars"></i> <span>Manajemen Transaksi</span></a></li>
+						<li><a href="panels.html" class=""><i class="lnr lnr-cog"></i> <span>Manajemen User</span></a></li>
+						<li><a href="notifications.html" class=""><i class="lnr lnr-alarm"></i> <span>Manajemen Penyewa</span></a></li>
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
 				
 					</ul>
 				</nav>
@@ -105,7 +143,11 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
+<<<<<<< HEAD
 				<p class="copyright">&copy; Andre Septiastika 2020</a>. All Rights Reserved.</p>
+=======
+				<p class="copyright">&copy; 2017 <a href="https://www.themeineed.com" target="_blank">Theme I Need</a>. All Rights Reserved.</p>
+>>>>>>> a0e994ae52856480ec5f4b7de76a9a3bed54bebd
 			</div>
 		</footer>
 	</div>
