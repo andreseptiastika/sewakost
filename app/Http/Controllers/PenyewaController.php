@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Penyewa;
+use App\Kamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -36,7 +37,8 @@ class PenyewaController extends Controller
     public function create()
     {
         $title = 'Input Penyewa';
-        return view('admin.penyewa.inputpenyewa',compact('title'));
+        $kamar   = Kamar::where('status','Kosong')->get();
+        return view('admin.penyewa.inputpenyewa',compact('title', 'kamar'));
     }
 
     /**
@@ -60,9 +62,10 @@ class PenyewaController extends Controller
             'telp'           => 'numeric',
             'alamat'         => 'required',
             'biaya'          => 'numeric',
+            'id_kamar'       => 'numeric',
             
         ],$messages);
-        
+        Kamar::whereid_kamar($request->id_kamar)->update(['status' => 'Terisi']);
         Penyewa::create($validasi);
         return redirect('penyewa')->with('success', 'Data Berhasil Di Tambahkan');
     }
@@ -88,7 +91,8 @@ class PenyewaController extends Controller
     {
         $title = 'Edit Penyewa';
         $penyewa = Penyewa::find($id);
-        return view('admin.penyewa.inputpenyewa',compact('title','penyewa'));
+        $kamar   = Kamar::where('status','Kosong')->get();
+        return view('admin.penyewa.inputpenyewa',compact('title','penyewa','kamar'));
     }
 
     /**

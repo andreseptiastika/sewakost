@@ -31,8 +31,11 @@ Route::get('/kepala', 'KepalaController@index')->name('kepala');
 Route::resource('transaksi', 'TransaksiController');
 //Auth::routes();
 Route::get('/transaksi', 'TransaksiController@index')->name('transaksi');
+Route::get('/{id}/print', 'TransaksiController@print')->name('transaksi.print');
 
 Route::resource('penyewa', 'PenyewaController');
+
+Route::resource('akun', 'AkunController');
 //Auth::routes();
 Route::get('/penyewa', 'PenyewaController@index')->name('penyewa');
 
@@ -45,3 +48,10 @@ Route::get('/laporankamar/cetak_pdf', 'LaporanKamarController@cetak_pdf');
 
 Route::get('/laporanpenyewa', 'LaporanPenyewaController@index');
 Route::get('/laporanpenyewa/cetak_pdf', 'LaporanPenyewaController@cetak_pdf');
+
+Route::get('/laporantagihan', 'LaporanPenyewaController@tagihan');
+Route::get('/laporantagihan/cetak_tagihan', 'LaporanPenyewaController@cetak_tagihan');
+
+Route::get('/dashboard', 'KamarController@dashboard');
+
+

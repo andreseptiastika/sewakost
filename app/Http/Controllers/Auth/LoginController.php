@@ -41,7 +41,7 @@ class LoginController extends Controller
     public function redirectTo()
     {
         if(Gate::allows('admin')){
-            return '/kamar';
+            return '/dashboard';
         }
         else if(Gate::allows('kepala')){
             return '/kepala';

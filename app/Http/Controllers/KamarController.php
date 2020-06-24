@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Kamar;
+use App\Penyewa;
+use App\Sewa;
+use App\Transaksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -12,6 +15,7 @@ class KamarController extends Controller
     {
         $this->middleware(function($request, $next){
             if(Gate::allows('admin')) return $next($request);
+
             abort(403, "Anda Tidak Memiliki Cukup Hak Akses");
         });
         
@@ -26,6 +30,7 @@ class KamarController extends Controller
         $title = 'Kamar';
         $kamar = Kamar::paginate(5);
         return view('admin.kamar.kamar',compact('title','kamar'));
+
     }
 
     /**
@@ -37,6 +42,7 @@ class KamarController extends Controller
     {
         $title = 'Input Kamar';
         return view('admin.kamar.inputkamar',compact('title'));
+
     }
 
     /**
@@ -61,7 +67,7 @@ class KamarController extends Controller
         ],$messages);
         
         Kamar::create($validasi);
-        return redirect('kamar')->with('success', 'Data Berhasil Di Update');
+        return redirect('kamar')->with('success', 'Data Berhasil Di Simpan');
     }
 
     /**
@@ -86,6 +92,7 @@ class KamarController extends Controller
         $title = 'Input Kamar';
         $kamar = Kamar::find($id);
         return view('admin.kamar.inputkamar',compact('title','kamar'));
+
     }
 
     /**
@@ -123,6 +130,17 @@ class KamarController extends Controller
     public function destroy($id)
     {
         Kamar::whereid_kamar($id)->delete();
-        return redirect('kamar')->with('success', 'Data Berhasil Di Update');
+        return redirect('kamar')->with('success', 'Data Berhasil Di Hapus');
+    }
+
+    public function dashboard()
+    {
+        $title = 'Dashboard';
+        $kamar   = Kamar::count();
+        $penyewa = Penyewa::count();
+        $sewa    = Sewa::count();
+        $transaksi = Transaksi::count();
+        return view('admin.home',compact('title','kamar','penyewa','sewa', 'transaksi'));
+
     }
 }

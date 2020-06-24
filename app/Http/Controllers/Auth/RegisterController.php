@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 
 class RegisterController extends Controller
 {
@@ -41,6 +42,20 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+
+    public function redirectTo()
+    {
+        if(Gate::allows('admin')){
+            return '/dashboard';
+        }
+        else if(Gate::allows('kepala')){
+            return '/kepala';
+        }
+        else{
+            return '/login';
+        }
+    }
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -53,6 +68,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'roles' => ['required', 'string', 'max:255']
         ]);
     }
 
@@ -68,6 +84,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'roles' => $data['roles']
         ]);
     }
 }

@@ -27,9 +27,9 @@ class LaporanKamarController extends Controller
  
     public function cetak_pdf()
     {
-    	$kamar = Kamar::all();
- 
-    	$pdf = PDF::loadview('kepala.laporankamar_pdf',compact('kamar'));
-    	return $pdf->download('kepala.laporan-kamar-pdf');
+        $title = 'Laporan Kamar';
+        $kamar = Kamar::all();
+        return view('kepala.laporankamar_pdf',compact('title', 'kamar'));
+
     }
 }

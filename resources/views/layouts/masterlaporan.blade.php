@@ -20,90 +20,12 @@
 	<!-- ICONS -->
 	<link rel="apple-touch-icon" sizes="76x76" href="{{asset('assets/img/apple-icon.png')}}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('assets/img/favicon.png')}}">
-
-
-
 </head>
 
 <body>
 	<!-- WRAPPER -->
-	<div id="wrapper">
-		<!-- NAVBAR -->
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<div class="brand">
-				<a href="/dashboard"><img src="{{asset('assets/img/logo-dark.png')}}" alt="Klorofil Logo" class="img-responsive logo"></a>
-			</div>
-			<div class="container-fluid">
-				<div class="navbar-btn">
-					<button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
-				</div>
-				<div id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
-							<ul class="dropdown-menu">
-								
-								<li>
-									<a class="#" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                            
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-									</a>
-								</li>
-								
-							</ul>
-						</li>
-						<!-- <li>
-							<a class="update-pro" href="https://www.themeineed.com/downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
-
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
-		<div id="sidebar-nav" class="sidebar">
-			<div class="sidebar-scroll">
-				<nav>
-					<ul class="nav">
-					<li><a href="/dashboard" class="{{ Request::is('dashboard') ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-					<li>
-							<a href="#subPages" data-toggle="collapse" class="collapsed" class="{{ Request::is('kamar') || Request::is('penyewa') ? 'active' : '' }}" aria-expanded="false"><i class="lnr lnr-file-empty"></i> <span>Master</span> <i class="icon-submenu lnr lnr-chevron-left"></i></a>
-							<div id="subPages" class="collapse" aria-expanded="false" style="height: 0px;">
-								<ul class="nav">
-									<li><a href="/kamar" class="{{ Request::is('kamar') ? 'active' : '' }}"> <span>Kamar</span></a></li>
-								<li><a href="/penyewa" class="{{ Request::is('penyewa') ? 'active' : '' }}"> <span>Penyewa</span></a></li>
-								</ul>
-							</div>
-						</li>
-						<li><a href="/sewa" class="{{ Request::is('sewa') || Request::is('sewa/create') ? 'active' : '' }}"><i class="lnr lnr-diamond"></i><span>Sewa</span></a></li>
-						<li><a href="/transaksi" class="{{ Request::is('transaksi') ? 'active' : '' }}"> <i class="fa fa-credit-card"></i> <span>Tagihan</span></a></li>
-						<li><a href="/akun" class="{{ Request::is('akun') || Request::is('akun/create') ? 'active' : '' }}"><i class="lnr lnr-cog"></i> <span>Akun</span></a></li>
-						
-						<li>
-
-									<a  class="#" href="{{ route('logout') }}" 
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-
-                            
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-									</a>
-								</li>
-
-				
-					</ul>
-				</nav>
-			</div>
-		</div>
+	
+		
 		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
 		<div class="main">
@@ -120,7 +42,7 @@
 
 			</div>
 		</footer>
-	</div>
+
 	<!-- END WRAPPER -->
 	<!-- Javascript -->
 	<script src="{{asset('assets/vendor/jquery/jquery.min.js')}}"></script>
@@ -247,7 +169,6 @@
 
 	});
 	</script>
-
 </body>
 @yield('sript')
 

@@ -9,7 +9,7 @@
 						<div class="panel-body">
 							
 								<div class="col-lg-12">
-								<a href="/laporankamar/cetak_pdf" class="btn btn-info btn-sm" target="_blank"> Cetak PDF </a>
+								<a href="/laporankamar/cetak_pdf" class="btn btn-info btn-sm" target="_blank"> Cetak  </a>
 								<br><br>
 							<table class="table table-bordered">
 								<thead>
@@ -29,7 +29,7 @@
 				<td>{{$nilai->nama_kamar}}</td>
 				<td>{{$nilai->fasilitas}}</td>
 				<td>{{$nilai->status}}</td>		
-                <td>{{$nilai->harga_sewa}}</td>
+                <td>Rp. {{number_format($nilai->harga_sewa)}}</td>
 				</tr>
 				@endforeach
 			</tbody>

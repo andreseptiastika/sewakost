@@ -3,22 +3,28 @@
 @section('content')
 <div class="panel panel-headline">
 						<div class="panel-heading">
-							<h3 class="panel-title">Daftar Transaksi</h3>
+							<h3 class="panel-title">Daftar Tagihan</h3>
 						</div>
 						<div class="panel-body">
+							@if (session('success'))
+							<div class="alert alert-info alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+								<i class="fa fa-info-circle"></i>  {{ session('success') }}
+							</div>
+							@endif
 								<div class="col-lg-12">
-								<a href="{{route('transaksi.create')}}" class="btn btn-info btn-sm" > Tambah Data </a>
-								<br> <br>
-						
-
+								<a href="{{route('transaksi.create')}}" class="btn btn-success btn-sm" > Tambah Data </a>
+								<br>
+								<br>
 							<table class="table table-bordered">
 								<thead>
 									<tr>
 										<th>No</th>
 										<th>No Transaksi</th>
-										<th>Tanggal Bayar</th>
-										<th>Batas Tempo</th>
-                                        <th>Jumlah Bayar</th>
+										<th>Nama</th>
+										<th>Biaya Kost</th>
+                                        <th>Biaya Tambahan</th>
+                                        <th>Status</th>
 										<th>Aksi</th>
 									</tr>
 								</thead>
@@ -27,23 +33,22 @@
 									<tr>
 										<td>{{$i+1}}</td>
 										<td>{{$nilai->no_transaksi}}</td>
-										<td>{{$nilai->tgl_bayar}}</td>
-										<td>{{$nilai->batas_tempo}} </td>
-										<td>{{$nilai->jumlah_bayar}}</td>
+										<td>{{$nilai->nama}}</td>
+										<td>Rp. {{number_format($nilai->harga_sewa)}} </td>
+										<td>Rp. {{number_format($nilai->biaya)}}</td>
+										<td>{{$nilai->status}}</td>
 										<td>
-										<form action="{{route('transaksi.destroy',$nilai->id_transaksi)}}" method="POST">
-												@csrf
-												@method('DELETE')
-											<a href="{{route('transaksi.edit',$nilai->id_transaksi)}}" class="btn btn-primary btn-sm"> Edit </a> 
+										
+											<a href="{{route('transaksi.edit',$nilai->id_penyewa)}}" class="btn btn-primary btn-sm" title="Bayar"> <i class="fa fa-money"></i>  </a> 
+
+											<a href="{{route('transaksi.print',$nilai->id_penyewa)}}" class="btn btn-danger btn-sm" title="Print"> <i class="fa fa-print"></i> </a> 
 											
-												<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-											</form>
+
 										</td>
 									</tr>
 									@endforeach
 								</tbody>
 							</table>
-							{{$transaksi->links()}}
 							
 							</div>
 							</div>

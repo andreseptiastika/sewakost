@@ -8,6 +8,8 @@ use App\Kamar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+
 
 
 
@@ -29,7 +31,12 @@ class SewaController extends Controller
     public function index()
     {   
         $title = 'Sewa';
-        $sewa =  Sewa::paginate(5);
+        //$sewa =  Sewa::paginate(5);
+        $sewa = DB::table('tb_penyewa')
+            ->join('tb_kamar', 'tb_penyewa.id_kamar', '=', 'tb_kamar.id_kamar')
+            ->join('tb_sewa', 'tb_penyewa.id_penyewa', '=', 'tb_sewa.id_penyewa')
+            ->get();
+        //$sewa = DB::table('tb_sewa')->get();
         return view('admin.sewa.sewa',compact('title','sewa'));
     }
 
@@ -62,10 +69,10 @@ class SewaController extends Controller
 
         $validasi = $request->validate([
             'id_penyewa'  => 'required',
-            'id_kamar'    => 'required',
             'tgl_sewa'    => 'date',
             'tipe'        => 'required',
-            
+            'fasilitas'   => '',
+            'biaya'       => '',
         ],$messages);
         
         Sewa::create($validasi);
@@ -94,7 +101,13 @@ class SewaController extends Controller
         $title = 'Edit Sewa';
         $kamar   = Kamar::all();
         $penyewa = Penyewa::all();
-        $sewa = sewa::find($id);
+        $sewa = DB::table('tb_penyewa')
+            ->join('tb_kamar', 'tb_penyewa.id_kamar', '=', 'tb_kamar.id_kamar')
+            ->join('tb_sewa', 'tb_penyewa.id_penyewa', '=', 'tb_sewa.id_penyewa')
+            ->where('tb_sewa.id_penyewa', $id)
+            ->get();
+        //$sewa = DB::table('tb_sewa')->where('id_sewa',$id)->get();
+        //$sewa = sewa::find($id);
         return view('admin.sewa.editsewa',compact('title','kamar','penyewa','sewa'));
     }
 
@@ -117,9 +130,10 @@ class SewaController extends Controller
 
         $validasi = $request->validate([
             'id_penyewa'  => 'required',
-            'id_kamar'    => 'required',
             'tgl_sewa'    => 'date',
             'tipe'        => 'required',
+            'fasilitas'   => '',
+            'biaya'       => '',
         ],$messages);
         
         sewa::whereid_sewa($id)->update($validasi);

@@ -9,7 +9,7 @@
 						<div class="panel-body">
 							
 								<div class="col-lg-12">
-								<a href="/laporankamar/cetak_pdf" class="btn btn-info btn-sm" target="_blank"> Cetak PDF </a>
+								<a href="/laporanpenyewa/cetak_pdf" class="btn btn-info btn-sm" target="_blank"> Cetak  </a>
 								<br><br>
 							<table class="table table-bordered">
 								<thead>

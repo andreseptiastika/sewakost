@@ -6,8 +6,11 @@ use App\Transaksi;
 use App\Sewa;
 use App\Penyewa;
 use App\Kamar;
+use App\Bayar;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class TransaksiController extends Controller
 {
@@ -15,6 +18,7 @@ class TransaksiController extends Controller
     {
         $this->middleware(function($request, $next){
             if(Gate::allows('admin')) return $next($request);
+
             abort(403, "Anda Tidak Memiliki Cukup Hak Akses");
         });
         
@@ -27,7 +31,12 @@ class TransaksiController extends Controller
     public function index()
     {
         $title = 'Transaksi';
-        $transaksi = Transaksi::paginate(5);
+        //$transaksi = Transaksi::paginate(5);
+        $transaksi = DB::table('tb_penyewa')
+            ->join('tb_kamar', 'tb_penyewa.id_kamar', '=', 'tb_kamar.id_kamar')
+            ->join('tb_sewa', 'tb_penyewa.id_penyewa', '=', 'tb_sewa.id_penyewa')
+            ->join('tb_transaksi', 'tb_penyewa.id_penyewa', '=', 'tb_transaksi.id_penyewa')
+            ->get();
         return view('admin.transaksi.transaksi',compact('title','transaksi'));
     }
 
@@ -39,10 +48,11 @@ class TransaksiController extends Controller
     public function create()
     {
         $title = 'Input Transaksi';
-        $sewa = Sewa::all();
+        $sewa    = Sewa::all();
         $kamar   = Kamar::all();
         $penyewa = Penyewa::all();
         return view('admin.transaksi.inputtransaksi',compact('title','sewa','kamar','penyewa'));
+
     }
 
     /**
@@ -61,11 +71,9 @@ class TransaksiController extends Controller
 
         $validasi = $request->validate([
             'no_transaksi'  => 'required',
-            'id_sewa'       => 'required',
+            'id_penyewa'    => 'required',
             'tgl_bayar'     => 'date',
-            'biaya'         => 'numeric',
-            'jumlah_bayar'  => 'numeric',
-            'batas_tempo'   => 'date'
+            'status'        => ' '
         ],$messages);
         
         Transaksi::create($validasi);
@@ -91,13 +99,23 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        $title = 'Edit Transaksi';
+        $title = 'Bayar';
         $sewa = Sewa::all();
         $kamar   = Kamar::all();
         $penyewa = Penyewa::all();
-        $transaksi = Transaksi::find($id);
-        return view('admin.transaksi.edittransaksi',compact('title','transaksi','sewa','kamar','penyewa'));
+        //$transaksi = Transaksi::find($id);
+
+        $transaksi = DB::table('tb_penyewa')
+            ->join('tb_kamar', 'tb_penyewa.id_kamar', '=', 'tb_kamar.id_kamar')
+            ->join('tb_sewa', 'tb_penyewa.id_penyewa', '=', 'tb_sewa.id_penyewa')
+            ->join('tb_transaksi', 'tb_penyewa.id_penyewa', '=', 'tb_transaksi.id_penyewa')
+            ->where('tb_transaksi.id_penyewa', $id)
+            ->get();
+        
+        return view('admin.transaksi.bayar',compact('title','transaksi','sewa','kamar','penyewa'));
+
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -108,6 +126,22 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        DB::table('tb_pembayaran')->insert([
+        'sub_total'     => $request->sub_total,
+        'cash'          => $request->cash,
+        'kembalian'     => $request->cash - $request->sub_total,
+        'id_penyewa'    => $id
+        ]);
+
+        DB::table('tb_transaksi')->where('id_penyewa',$id)->update([
+        'status' => 'Lunas'
+         ]);
+        
+        //Transaksi::whereid_transaksi($id)->update($validasi);
+        return redirect('transaksi')->with('success', 'Pembayaran Berhasil Dilakukan');
+    
+/*
         $messages = [
             'required' => 'Kolom :attribute harus lengkap',
             'date'     => 'Kolom :attribute harus tanggal.',     
@@ -115,16 +149,13 @@ class TransaksiController extends Controller
         ];
 
         $validasi = $request->validate([
-            'no_transaksi'  => 'required',
-            'id_sewa'       => 'required',
-            'tgl_bayar'     => 'date',
-            'biaya'         => 'numeric',
-            'jumlah_bayar'  => 'numeric',
-            'batas_tempo'   => 'date'
+            'sub_total'  => '',
+            'cash'       => '',
+            'kembalian'  => '',
+            'id_penyewa' => ''
+            
         ],$messages);
-        
-        Transaksi::whereid_transaksi($id)->update($validasi);
-        return redirect('transaksi')->with('success', 'Data Berhasil Di Update');
+*/
     }
 
     /**
@@ -138,4 +169,21 @@ class TransaksiController extends Controller
         Transaksi::whereid_transaksi($id)->delete();
         return redirect('transaksi')->with('success', 'Data Berhasil Di Hapus');
     }
+
+     public function print($id)
+    {
+        $title = 'Print';
+
+        $transaksi = DB::table('tb_penyewa')
+            ->join('tb_kamar', 'tb_penyewa.id_kamar', '=', 'tb_kamar.id_kamar')
+            ->join('tb_sewa', 'tb_penyewa.id_penyewa', '=', 'tb_sewa.id_penyewa')
+            ->join('tb_transaksi', 'tb_penyewa.id_penyewa', '=', 'tb_transaksi.id_penyewa')
+            ->join('tb_pembayaran', 'tb_penyewa.id_penyewa', '=', 'tb_pembayaran.id_penyewa')
+            ->where('tb_transaksi.id_penyewa', $id)
+            ->get();
+        
+        return view('admin.transaksi.print',compact('title','transaksi'));
+
+    }
+
 }

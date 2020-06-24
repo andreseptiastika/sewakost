@@ -40,7 +40,7 @@
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="#"> <span>Profile</span></a></li>
+								
 								
 								<li>
 									<a class="#" href="{{ route('logout') }}"
@@ -70,15 +70,14 @@
 				<nav>
 					<ul class="nav">
 					<li><a href="/kepala" class="{{ Request::is('kepala') ? 'active' : '' }}"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
-						<li>
-							<a href="#laporan" data-toggle="collapse" class="{{ Request::is('laporankamar') || Request::is('laporanpenyewa') ? 'active' : '' }}" aria-expanded="true"><i class="lnr lnr-file-empty"></i> <span>Laporan</span> </a>
-							<div id="laporan" class="collapse in" aria-expanded="true" style="">
-								<ul class="nav">
-								<li><a href="/laporankamar" class="{{ Request::is('/') ? 'active' : '' }}"> <span>Laporan Kamar</span></a></li>
-								<li><a href="/laporanpenyewa" class="{{ Request::is('/') ? 'active' : '' }}"> <span>Laporan Penyewa</span></a></li>
-								</ul>
-							</div>
-						</li>
+
+					<li><a href="/laporankamar" class="{{ Request::is('laporankamar') ? 'active' : '' }}"><i class="lnr lnr-file-empty"></i> <span>Laporan Kamar</span></a></li>
+
+					<li><a href="/laporanpenyewa" class="{{ Request::is('laporanpenyewa') ? 'active' : '' }}"><i class="lnr lnr-file-empty"></i> <span>Laporan Penyewa</span></a></li>
+
+					<li><a href="/laporantagihan" class="{{ Request::is('laporantagihan') ? 'active' : '' }}"><i class="lnr lnr-file-empty"></i> <span>Laporan Tagihan</span></a></li>
+
+						
 					</ul>
 				</nav>
 			</div>
@@ -94,7 +93,7 @@
 		<div class="clearfix"></div>
 		<footer>
 			<div class="container-fluid">
-				<p class="copyright">&copy; Andre Septiastika 2020</a>. All Rights Reserved.</p>
+				<p class="copyright">&copy; Kost Orchid 2020</a>. All Rights Reserved.</p>
 			</div>
 		</footer>
 	</div>
